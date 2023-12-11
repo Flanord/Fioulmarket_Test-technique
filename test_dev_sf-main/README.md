@@ -22,28 +22,27 @@ Réponses aux questions :
 Améliorations Apportées :
 
 1.a Refactoring du Code:
-        Découpage du code en plusieurs classes/services pour respecter le principe de responsabilité unique.
-        Création de classes distinctes pour la gestion des flux, le filtrage des images, la récupération des images, la gestion des liens.
+### Découpage du code en plusieurs classes/services pour respecter le principe de responsabilité unique.
+### Création de classes distinctes pour la gestion des flux, le filtrage des images, la récupération des images, la gestion des liens.
 
 1.b Gestion des Erreurs:
-        Utilisation du système de journalisation (logger) pour enregistrer les erreurs et les informations utiles.
-        Mise en place de messages d'erreur plus descriptifs pour faciliter le débogage.
+###Utilisation du système de journalisation (logger) pour enregistrer les erreurs et les informations utiles.
+###Mise en place de messages d'erreur plus descriptifs pour faciliter le débogage.
 
 1.c Paramètres de Configuration:
-        Utilisation des paramètres de configuration Symfony pour stocker des valeurs telles que les URL de flux, les clés API
+###Utilisation des paramètres de configuration Symfony pour stocker des valeurs telles que les URL de flux, les clés API
 
 1.e Optimisation du Code:
-        Utilisation des services Symfony pour injecter des dépendances plutôt que d'instancier des objets directement dans les méthodes.
+###Utilisation des services Symfony pour injecter des dépendances plutôt que d'instancier des objets directement dans les méthodes.
 
 Structure du Projet
 
-Le projet est organisé selon une structure modulaire qui favorise la lisibilité, la maintenance et l'extensibilité. Voici une vue d'ensemble de la structure :
-    src/Controller/HomeController.php: Ce fichier contient le contrôleur principal responsable de l'orchestration des différentes étapes du processus.
-    src/Service/FluxManager.php: Service pour la gestion des flux RSS et API.
-    src/Service/ImageFilter.php: Service pour le filtrage des liens d'images.
-    src/Service/ImageRetriever.php: Service pour la récupération du contenu d'une image.
-    src/Service/LinkManager.php: Service pour la gestion des liens.
-    src/Service/ImageManager.php: Classe de coordination qui utilise les différents services mentionnés ci-dessus pour récupérer et traiter les images à partir des flux RSS et de l'API.
+##Le projet est organisé selon une structure modulaire qui favorise la lisibilité, la maintenance et l'extensibilité. Voici une vue d'ensemble de la structure :
+###src/Controller/HomeController.php: Ce fichier contient le contrôleur principal responsable de l'orchestration des différentes étapes du processus.
+###src/Service/FluxManager.php: Service pour la gestion des flux RSS et API.
+###src/Service/ImageFilter.php: Service pour le filtrage des liens d'images.
+###src/Service/LinkManager.php: Service pour la gestion des liens.
+###src/Service/ImageManager.php: Classe de coordination qui utilise les différents services mentionnés ci-dessus pour récupérer et traiter les images à partir des flux RSS et de l'API.
 
 Cette structure offre une séparation claire des responsabilités, facilitant ainsi l'extension du code et la maintenance à long terme. Chaque service a une tâche spécifique, ce qui rend le code plus lisible et modulaire.
 

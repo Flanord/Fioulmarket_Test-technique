@@ -8,18 +8,15 @@ class ImageManager
 {
     private $fluxManager;
     private $imageFilter;
-    private $imageRetriever;
     private $linkManager;
 
     public function __construct(
         FluxManager $fluxManager,
         ImageFilter $imageFilter,
-        ImageRetriever $imageRetriever,
         LinkManager $linkManager
     )
     {
         $this->linkManager = $linkManager;
-        $this->imageRetriever = $imageRetriever;
         $this->imageFilter = $imageFilter;
         $this->fluxManager = $fluxManager;
     }
@@ -36,14 +33,9 @@ class ImageManager
 
         $filteredLinks = $this->imageFilter->filterImages(array_merge($rssLinks, $apiLinks));
 
-        $uniqueLinks = $this->linkManager->removeDuplicates($filteredLinks);
+        $uniqueImages = $this->linkManager->removeDuplicates($filteredLinks);
 
-        $images = [];
-        foreach ($uniqueLinks as $link) {
-            $images[] = $this->imageRetriever->retrieveImage($link);
-        }
-
-        return $images;
+        return $uniqueImages;
     }
 
 }

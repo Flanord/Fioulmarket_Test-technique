@@ -1,17 +1,17 @@
 <?php
 
-
 namespace App\Service;
 
 
 use Psr\Log\LoggerInterface;
+use Symfony\Component\DomCrawler\Crawler;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
 
 class ImageFilter
 {
     private $httpClient;
 
-    public function __construct(HttpClientInterface $httpClient,LoggerInterface $logger)
+    public function __construct(HttpClientInterface $httpClient, LoggerInterface $logger)
     {
         $this->httpClient = $httpClient;
         $this->logger = $logger;
@@ -25,32 +25,43 @@ class ImageFilter
      */
     public function filterImages(array $links): array
     {
-        $imageLinks = [];
+
+        $imageUrls = [];
 
         foreach ($links as $link) {
             try {
                 $response = $this->httpClient->request('GET', $link);
-                if ($this->isImageContent($response->getContent())) {
-                    $imageLinks[] = $link;
-                }
+                $htmlContent = $response->getContent();
+
+                $imageUrls = array_merge($imageUrls, $this->extractImageUrls($htmlContent));
+                $this->logger->info('Images filtrées depuis ' . $link);
             } catch (\Exception $e) {
-                $failedLinks[] = $link;
-                $this->logger->error('Erreur lors du filtrage d\'images depuis ' . $link, ['exception' => $e]);
+                $this->logger->error('Erreur lors de la récupération du contenu depuis ' . $link, ['exception' => $e]);
             }
+
         }
-        return $imageLinks;
+        return $imageUrls;
     }
 
     /**
-     * Vérifie si le contenu de la réponse HTTP est une image.
      *
-     * @param string $content Le contenu de la réponse HTTP.
-     * @return bool True si le contenu est une image, sinon False.
+     *
+     * @param string $content Le contenu HTML.
+     * @return string|null L'URL des  images ou null s'il n'y en a pas.
      */
-    private function isImageContent(string $content): bool
+    public function extractImageUrls(string $htmlContent): array
     {
-        $imageRegex = '/\b(?:https?:\/\/\S+\.(?:jpg|jpeg|gif|png))\b/i';
-        return preg_match($imageRegex, $content) === 1;
+        $imageUrls = [];
+
+        $crawler = new Crawler($htmlContent);
+        $crawler->filter('img[src]')->each(function (Crawler $imgNode) use (&$imageUrls) {
+            $src = $imgNode->attr('src');
+            if (filter_var($src, FILTER_VALIDATE_URL) && !strstr($src, 'facebook.com/tr?id=')) {
+                $imageUrls[] = $src;
+            }
+        });
+
+        return $imageUrls;
     }
 
 }
