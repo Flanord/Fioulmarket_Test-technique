@@ -38,21 +38,36 @@ Utilisation des services Symfony pour injecter des dépendances plutôt que d'in
 Structure du Projet
 
 le projet est organisé selon une structure modulaire qui favorise la lisibilité, la maintenance et l'extensibilité. Voici une vue d'ensemble de la structure :
-
+```bash
 src/Controller/HomeController.php: Ce fichier contient le contrôleur principal responsable de l'orchestration des différentes étapes du processus.
+```
+```bash
 src/Service/FluxManager.php: Service pour la gestion des flux RSS et API.
+```
+```bash
 src/Service/ImageFilter.php: Service pour le filtrage des liens d'images.
+```
+```bash
 src/Service/LinkManager.php: Service pour la gestion des liens.
+```
+```bash
 src/Service/ImageManager.php: Classe de coordination qui utilise les différents services mentionnés ci-dessus pour récupérer et traiter les images à partir des flux RSS et de l'API.
+```
 
 Cette structure offre une séparation claire des responsabilités, facilitant ainsi l'extension du code et la maintenance à long terme. Chaque service a une tâche spécifique, ce qui rend le code plus lisible et modulaire.
 
 Réponses  Théoriques : amélioration des Temps de Réponse du Script
 
 2.a Pour améliorer les temps de réponse du script, voici quelques recommandations :
+```bash
 Traitement Asynchrone: Utilisation de tâches asynchrones pour traiter plusieurs flux simultanément, réduisant ainsi les temps d'exécution.
+```
+```bash
 Utilisation de Workers: Mise en place d'une architecture de type worker pour distribuer la charge de travail, surtout avec plusieurs milliers de sources.
+```
+```bash
 Optimisation des Requêtes Réseau: Optimisation des requêtes en utilisant des connexions persistantes et en minimisant le nombre de requêtes.
+```
 
 2.b Scalabilité du Script
 
