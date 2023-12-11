@@ -4,15 +4,17 @@
 namespace App\Service;
 
 
+use Psr\Log\LoggerInterface;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
 
 class ImageFilter
 {
     private $httpClient;
 
-    public function __construct(HttpClientInterface $httpClient)
+    public function __construct(HttpClientInterface $httpClient,LoggerInterface $logger)
     {
         $this->httpClient = $httpClient;
+        $this->logger = $logger;
     }
 
     /**
@@ -33,6 +35,7 @@ class ImageFilter
                 }
             } catch (\Exception $e) {
                 $failedLinks[] = $link;
+                $this->logger->error('Erreur lors du filtrage d\'images depuis ' . $link, ['exception' => $e]);
             }
         }
         return $imageLinks;

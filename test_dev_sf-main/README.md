@@ -15,3 +15,49 @@ Pratique :
 Questions théoriques : 
 1. Que mettriez-vous en place afin d'améliorer les temps de réponses du script
 2. Comment aborderiez-vous le fait de rendre scalable le script (plusieurs milliers de sources et images)
+
+
+Réponses aux questions :
+
+Améliorations Apportées :
+
+1.a Refactoring du Code:
+        Découpage du code en plusieurs classes/services pour respecter le principe de responsabilité unique.
+        Création de classes distinctes pour la gestion des flux, le filtrage des images, la récupération des images, la gestion des liens.
+
+1.b Gestion des Erreurs:
+        Utilisation du système de journalisation (logger) pour enregistrer les erreurs et les informations utiles.
+        Mise en place de messages d'erreur plus descriptifs pour faciliter le débogage.
+
+1.c Paramètres de Configuration:
+        Utilisation des paramètres de configuration Symfony pour stocker des valeurs telles que les URL de flux, les clés API
+
+1.e Optimisation du Code:
+        Utilisation des services Symfony pour injecter des dépendances plutôt que d'instancier des objets directement dans les méthodes.
+
+Structure du Projet
+
+Le projet est organisé selon une structure modulaire qui favorise la lisibilité, la maintenance et l'extensibilité. Voici une vue d'ensemble de la structure :
+    src/Controller/HomeController.php: Ce fichier contient le contrôleur principal responsable de l'orchestration des différentes étapes du processus.
+    src/Service/FluxManager.php: Service pour la gestion des flux RSS et API.
+    src/Service/ImageFilter.php: Service pour le filtrage des liens d'images.
+    src/Service/ImageRetriever.php: Service pour la récupération du contenu d'une image.
+    src/Service/LinkManager.php: Service pour la gestion des liens.
+    src/Service/ImageManager.php: Classe de coordination qui utilise les différents services mentionnés ci-dessus pour récupérer et traiter les images à partir des flux RSS et de l'API.
+
+Cette structure offre une séparation claire des responsabilités, facilitant ainsi l'extension du code et la maintenance à long terme. Chaque service a une tâche spécifique, ce qui rend le code plus lisible et modulaire.
+
+Réponses  Théoriques : amélioration des Temps de Réponse du Script
+
+2.a Pour améliorer les temps de réponse du script, voici quelques recommandations :
+    Traitement Asynchrone: Utilisation de tâches asynchrones pour traiter plusieurs flux simultanément, réduisant ainsi les temps d'exécution.
+    Utilisation de Workers: Mise en place d'une architecture de type worker pour distribuer la charge de travail, surtout avec plusieurs milliers de sources.
+    Optimisation des Requêtes Réseau: Optimisation des requêtes en utilisant des connexions persistantes et en minimisant le nombre de requêtes.
+
+2.b Scalabilité du Script
+
+Pour rendre le script scalable face à plusieurs milliers de sources et images, voici quelques suggestions :
+    Parallelisation: Exploration de bibliothèques ou de composants Symfony qui facilitent la parallélisation des tâches pour améliorer les performances.
+    Utilisation de Cache Distribué: Utilisation d'un système de cache distribué pour stocker les résultats intermédiaires et partager la charge entre plusieurs instances du script.
+    Optimisation de l'Algorithme: Revue de l'algorithme pour garantir son efficacité, en particulier avec un grand nombre de flux.
+    Load Balancing: Utilisation d'un système de load balancing si plusieurs serveurs sont disponibles pour répartir la charge.
