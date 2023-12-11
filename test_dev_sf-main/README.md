@@ -72,9 +72,13 @@ Optimisation des Requêtes Réseau: Optimisation des requêtes en utilisant des 
 2.b Scalabilité du Script
 
 Pour rendre le script scalable face à plusieurs milliers de sources et images, voici quelques suggestions :
+
 Parallelisation: Exploration de bibliothèques ou de composants Symfony qui facilitent la parallélisation des tâches pour améliorer les performances (exemple l'uitlisation  Symfony Messenger ).
+
 Utilisation de Cache Distribué: Utilisation d'un système de cache distribué pour stocker les résultats intermédiaires et partager la charge entre plusieurs instances du script ( exmple avec redis).
+
 Optimisation de l'Algorithme: Revue de l'algorithme pour garantir son efficacité, en particulier avec un grand nombre de flux .
+
 Load Balancing: Utilisation d'un système de load balancing si plusieurs serveurs sont disponibles pour répartir la charge.
 
 
