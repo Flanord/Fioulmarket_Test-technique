@@ -23,7 +23,7 @@ Améliorations Apportées :
 
 1.a Refactoring du Code:
 Découpage du code en plusieurs classes/services pour respecter le principe de responsabilité unique qui fait partie de principe (SOLID).
-Création de classes distinctes pour la gestion des flux, le filtrage des images, la récupération des images, la gestion des liens.@
+Création de classes distinctes pour la gestion des flux, le filtrage des images, la récupération des images, la gestion des liens.
 
 1.b Gestion des Erreurs:
 Utilisation du système de journalisation (logger) pour enregistrer les erreurs et les informations utiles.
