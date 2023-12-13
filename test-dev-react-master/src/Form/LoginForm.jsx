@@ -1,44 +1,39 @@
-import React, {useState} from 'react';
-import './RegisterForm.css';
-import {validateEmail, validatePassword, validatePasswordMatch} from '../utils/FormUtils';
-import {InputField, PasswordField,Button} from "./FormComponents";
-import Dialogs from "../utils/Dialogs";
+import React, { useState } from 'react';
+import { InputField, PasswordField,Button } from './FormComponents';
+import { validateEmail, validatePassword } from '../utils/FormUtils';
+import Dialogs from '../utils/Dialogs';
 
-const RegistrationForm = () => {
-    const [values, setValues] = useState({email: '', password: '', confirm: ''});
+const LoginForm = () => {
+    const [values, setValues] = useState({ email: '', password: '' });
     const [errors, setErrors] = useState({});
     const [showPassword, setShowPassword] = useState(false);
 
     const handleInputChange = (e) => {
-        const {name, value} = e.target;
-        setValues({...values, [name]: value});
-        setErrors({...errors, [name]: ''});
+        const { name, value } = e.target;
+        console.log("Field name:", name, "Value:", value);
+        setValues({ ...values, [name]: value });
+        setErrors({ ...errors, [name]: '' });
     };
-
     const validateForm = () => {
         const newErrors = {};
         if (!validateEmail(values.email)) {
-            newErrors.email = 'Veuillez fournir une adresse e-mail valide.';
+            newErrors.email = 'Vous devez fournir une adresse e-mail valide.';
         }
         if (!validatePassword(values.password)) {
             newErrors.password = 'Votre mot de passe doit contenir entre 5 et 16 caractères.';
         }
-        if (!validatePasswordMatch(values.password, values.confirm)) {
-            newErrors.confirm = 'Vos mots de passe doivent correspondre.';
-        }
-
         setErrors(newErrors);
         return Object.keys(newErrors).length === 0;
-    };
+    }
 
     const handleSubmit = async (e) => {
         e.preventDefault();
         if (validateForm()) {
             const isConfirmed = await Dialogs.showConfirmation("Confirmez-vous la soumission du formulaire ?");
             if (isConfirmed) {
-                setValues({ email: '', password: '', confirm: '' });
-                setErrors({});
                 Dialogs.showAlert("Formulaire soumis avec succès !", Dialogs.ALERT_TYPES.SUCCESS);
+                setValues({ email: '', password: '' });
+                setErrors({});
             } else {
                 Dialogs.showAlert("Soumission du formulaire annulée.", Dialogs.ALERT_TYPES.WARNING);
             }
@@ -67,17 +62,15 @@ const RegistrationForm = () => {
                             setShowPassword={setShowPassword}
                             error={errors.password}
                         />
-                        <PasswordField
-                            label="Mot de passe"
-                            name="confirm"
-                            value={values.confirm}
-                            onChange={handleInputChange}
-                            showPassword={showPassword}
-                            setShowPassword={setShowPassword}
-                            error={errors.confirm}
-                        />
+                        <div className="form-group d-flex justify-content-end">
+                            <a href="#" className="forgot-password">Mot de passe oublié ?</a>
+                        </div>
                         <div className="form-group">
-                            <Button type="submit" label="M'INSCRIRE" className="custom-button-class" />
+                            <Button
+                                type="submit"
+                                label="ME CONNECTER"
+                                className="custom-button-class"
+                            />
                         </div>
                     </form>
                 </div>
@@ -85,5 +78,4 @@ const RegistrationForm = () => {
         </div>
     );
 }
-
-export default RegistrationForm;
+export default LoginForm;

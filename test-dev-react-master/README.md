@@ -87,3 +87,26 @@ And the HTML should be rendered as so :
 The `<RegisterForm />` component will be the one you just refactored, and the `<Login />` one will be one you will create based on what you just did on the *Task 1*.
 
 *Don't worry too much about css, the only required thing is the tab style working properly.*
+
+
+### Resultats :
+
+### Explications
+
+### Tâche 2: Création d'un Système d'Onglets
+
+Le composant TabComponent a été conçu pour fournir une navigation par onglets entre les formulaires de connexion (LoginForm) et d'inscription (RegistrationForm).
+
+1. Réutilisation des composants de formulaire : J'ai créé des composants de formulaire réutilisables tels que InputField, PasswordField et Button, ce qui permet une utilisation facile de ces composants dans d'autres parties de l'application (LoginForm et RegistrationForm).
+
+2. Utilisation de React Hooks : J'ai refactorisé le code pour utiliser les React Hooks (useState) au lieu de la gestion de l'état avec le constructeur et this.state. Cela a simplifié notre code et amélioré sa lisibilité.
+
+3. Validation du formulaire améliorée : J'ai amélioré la validation du formulaire en ajoutant une vérification de la correspondance entre le mot de passe et la confirmation du mot de passe.
+
+
+En combinant ces améliorations, notre composant TabComponent est maintenant plus flexible, réactif et facile à utiliser. Les fonctions de validation du formulaire assurent la qualité des données saisies par les utilisateurs, renforçant ainsi la fiabilité de notre application.
+
+
+![Tab TabComponent](public/img/login_tab.png?raw=true "TabComponent")
+![Tab TabComponent](public/img/login_confirm.png?raw=true "TabComponent")
+
